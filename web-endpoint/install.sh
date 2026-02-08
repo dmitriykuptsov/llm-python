@@ -7,13 +7,13 @@ rsync -rv frontend/dist/* /var/www/llm/
 
 sudo useradd -r -s /bin/false llmagent
 mkdir /opt/llm-agent
-cd backend 
+cd backend
 bash install
 cd ..
-rsync -rv baclend/agent.py /opt/llm-agent/
-rsync -rv baclend/run.sh /opt/llm-agent/
-rsync -rv baclend/app.py /opt/llm-agent/
-rsync -rv baclend/venv /opt/llm-agent/
+rsync -rv backend/agent.py /opt/llm-agent/
+rsync -rv backend/run.sh /opt/llm-agent/
+rsync -rv backend/app.py /opt/llm-agent/
+rsync -rv backend/venv /opt/llm-agent/
 
 sudo chown -R llmagent:llmagent /opt/llm-agent
 sudo chmod -R 755 /opt/llm-agent
