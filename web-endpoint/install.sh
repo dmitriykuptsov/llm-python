@@ -1,5 +1,6 @@
 sudo apt update
 sudo apt install nginx
+sudo apt install -y certbot python3-certbot-nginx
 
 mkdir /var/www/llm;
 chown -R www-data:www-data /var/www/llm;
