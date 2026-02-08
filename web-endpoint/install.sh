@@ -8,7 +8,7 @@ rsync -rv frontend/dist/* /var/www/llm/
 sudo useradd -r -s /bin/false llmagent
 mkdir /opt/llm-agent
 cd backend
-bash install
+bash install.sh
 cd ..
 rsync -rv backend/agent.py /opt/llm-agent/
 rsync -rv backend/run.sh /opt/llm-agent/
@@ -23,10 +23,6 @@ cp service/llm-agent.service /etc/systemd/system/llm-agent.service
 sudo systemctl daemon-reload
 sudo systemctl enable llm-agent
 sudo systemctl start llm-agent
-
-cd backend
-bash install.sh
-
 
 cp nginx/llm.config /etc/nginx/sites-available/llm-agent
 sudo ln -s /etc/nginx/sites-available/llm-agent /etc/nginx/sites-enabled/
