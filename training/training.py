@@ -4,7 +4,7 @@ import json
 import torch
 from torch.utils.data import Dataset
 
-model_name = "gpt2"
+model_name = "gpt2-medium"
 
 class GPT2Dataset(Dataset):
     def __init__(self, json_path, tokenizer, max_length=512):
@@ -50,15 +50,17 @@ from transformers import TrainingArguments
 from transformers import Trainer, DataCollatorForLanguageModeling
 
 training_args = TrainingArguments(
-    output_dir="./gpt2-book",
+    output_dir="./gpt2-networking",
     per_device_train_batch_size=1,
     gradient_accumulation_steps=8,
-    num_train_epochs=400,
     learning_rate=2e-5,
-    logging_steps=100,
-    save_steps=1000,
-    save_total_limit=2,
-    max_steps=1000,
+    lr_scheduler_type = "cosine",
+    #warmup_steps = 100,
+    #logging_steps=100,
+    optim = "adamw_torch",
+    #save_steps=1000,
+    #save_total_limit=2,
+    max_steps=10000,
     fp16=False,              # set False if no GPU
     report_to="none"
 )
@@ -75,15 +77,10 @@ trainer = Trainer(
     data_collator=data_collator
 )
 
-
-dl = trainer.get_train_dataloader()
-batch = next(iter(dl))
-
-print(batch["input_ids"].shape)
-print(batch["labels"].shape)
+model.config.use_cache = False
+model.gradient_checkpointing_enable()
 
 trainer.train()
 
 model.save_pretrained("./gpt2-networking")
 tokenizer.save_pretrained("./gpt2-networking")
-
