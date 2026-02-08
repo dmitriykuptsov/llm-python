@@ -1,0 +1,31 @@
+[Unit]
+Description=Custom LLM Agent (FastAPI)
+After=network.target
+
+[Service]
+Type=simple
+User=llmagent
+Group=llmagent
+
+WorkingDirectory=/opt/llm-agent/
+
+Environment="PATH=/opt/llm-agent/"
+Environment="PYTHONUNBUFFERED=1"
+
+ExecStart=run.sh
+
+Restart=always
+RestartSec=5
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+
+# Security hardening (safe defaults)
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
