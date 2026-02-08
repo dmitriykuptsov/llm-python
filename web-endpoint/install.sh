@@ -11,7 +11,7 @@ mkdir /opt/llm-agent
 rsync -rv backend/agent.py /opt/llm-agent/
 rsync -rv backend/run.sh /opt/llm-agent/
 rsync -rv backend/app.py /opt/llm-agent/
-rsync -rv backend/venv /opt/llm-agent/
+#rsync -rv backend/venv /opt/llm-agent/
 rsync -rv backend/install.sh /opt/llm-agent/
 rsync -rv backend/requirements.txt /opt/llm-agent/
 
@@ -21,6 +21,9 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 deactivate
+
+rm install.sh
+rm requirements.txt
 
 sudo chown -R llmagent:llmagent /opt/llm-agent
 sudo chmod -R 755 /opt/llm-agent
