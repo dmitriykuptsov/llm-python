@@ -1,3 +1,6 @@
+sudo apt update
+sudo apt install nginx
+
 mkdir /var/www/llm;
 chown -R www-data:www-data /var/www/llm;
 rsync -rv frontend/dist/* /var/www/llm/
@@ -24,8 +27,6 @@ sudo systemctl start llm-agent
 cd backend
 bash install.sh
 
-sudo apt update
-sudo apt install nginx
 
 cp nginx/llm.config /etc/nginx/sites-available/llm-agent
 sudo ln -s /etc/nginx/sites-available/llm-agent /etc/nginx/sites-enabled/
